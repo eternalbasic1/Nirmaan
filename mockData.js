@@ -522,7 +522,7 @@ export const heroSlides = [
     quote:
       "A home built with honest materials. Factory-direct supplies, verified batches and transparent prices, right to your village site.",
     author: "For the hands that build a future.",
-    image: "/images/home-00.webp",
+    image: "/images/hero-rural-original.webp",
     action: "EXPLORE STRUCTURAL MATERIALS",
     href: "/materials",
   },
@@ -533,7 +533,7 @@ export const heroSlides = [
     quote:
       "Building our first Bengaluru duplex without worrying about fake rebar or inflated retail quotes. Verified weighbridge digital slips at the gate.",
     author: "Karthik & Pooja · Duplex owners, HSR Layout",
-    image: "/images/home-01.webp",
+    image: "/images/hero-urban-original.webp",
     action: "CALCULATE YOUR SLAB NEEDS",
     href: "/#estimator",
   },
@@ -544,7 +544,7 @@ export const heroSlides = [
     quote:
       "Precision in every detail. Premium-grade materials and coordinated site logistics for the places you have always imagined.",
     author: "For projects built to stand apart.",
-    image: "/images/home-02.webp",
+    image: "/images/hero-villa-original.webp",
     action: "SOURCE YOUR NEXT PROJECT",
     href: "/materials",
   },
