@@ -5,10 +5,6 @@ import { useEffect, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
-  ChevronLeft,
-  ChevronRight,
-  Pause,
-  Play,
   Truck,
   MapPin,
   PackageCheck,
@@ -28,38 +24,36 @@ import { useCart } from "@/components/CartProvider";
 function PersonaCarousel() {
   const [index, setIndex] = useState(1);
   const [autoplay, setAutoplay] = useState(true);
-  const [hover, setHover] = useState(false);
   const [focused, setFocused] = useState(false);
   useEffect(() => {
     if (
       !autoplay ||
-      hover ||
       focused ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     )
       return;
     const id = window.setInterval(
       () => setIndex((i) => (i + 1) % heroSlides.length),
-      4000,
+      3000,
     );
     return () => window.clearInterval(id);
-  }, [autoplay, hover, focused, index]);
+  }, [autoplay, focused, index]);
   const slide = heroSlides[index];
   return (
     <section
       className="market-hero"
       aria-label="Building stories"
       aria-roledescription="carousel"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onFocusCapture={() => setFocused(true)}
+      onFocusCapture={(e) => {
+        if (e.target.matches(":focus-visible")) setFocused(true);
+      }}
       onBlurCapture={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false);
       }}
     >
       <div
         className="grid items-center gap-7 lg:min-h-[460px] lg:grid-cols-[0.95fr_1.05fr] lg:gap-12"
-        aria-live={autoplay && !hover && !focused ? "off" : "polite"}
+        aria-live={autoplay && !focused ? "off" : "polite"}
       >
         <div className="flex flex-col justify-center py-4 lg:py-8">
           <span className="market-persona mb-5 flex w-fit items-center gap-2 text-sm font-medium">
@@ -112,45 +106,31 @@ function PersonaCarousel() {
           />
         </div>
       </div>
-      <div className="market-carousel-controls mt-5 flex flex-wrap items-center justify-between gap-3 py-3">
-        <div className="hide-scrollbar flex max-w-full items-center gap-1.5 overflow-x-auto">
-          <button
-            type="button"
-            aria-label="Previous building story"
-            onClick={() => setIndex((index + 2) % 3)}
-            className="market-arrow flex h-11 w-11 shrink-0 items-center justify-center hover:bg-plate"
-          >
-            <ChevronLeft size={13} />
-          </button>
+      <div className="market-carousel-controls mt-4 flex items-center justify-center py-1">
+        <div
+          className="flex items-center"
+          role="group"
+          aria-label="Choose a banner"
+        >
           {heroSlides.map((s, i) => (
             <button
               type="button"
               key={s.tag}
               aria-pressed={i === index}
-              aria-label={`Show ${s.tag} story`}
+              aria-label={`Show banner ${i + 1} of ${heroSlides.length}`}
               onClick={() => setIndex(i)}
-              className={`market-slide-tab min-h-11 shrink-0 px-3 py-2 text-sm ${i === index ? "bg-black text-white" : "bg-white text-black hover:bg-plate"}`}
+              className="market-carousel-dot flex h-11 w-11 items-center justify-center"
             >
-              {["Rural builder", "Urban homeowner", "Villa estate"][i]}
+              <span aria-hidden="true" />
             </button>
           ))}
-          <button
-            type="button"
-            aria-label="Next building story"
-            onClick={() => setIndex((index + 1) % 3)}
-            className="market-arrow flex h-11 w-11 shrink-0 items-center justify-center hover:bg-plate"
-          >
-            <ChevronRight size={13} />
-          </button>
         </div>
         <button
           type="button"
           onClick={() => setAutoplay(!autoplay)}
-          aria-label={autoplay ? "Pause carousel" : "Play carousel"}
-          className="flex min-h-11 items-center gap-2 text-sm"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-10 focus:border focus:border-black focus:bg-white focus:px-4 focus:py-2"
         >
-          {autoplay ? <Pause size={14} /> : <Play size={14} />}
-          {autoplay ? "Pause stories" : "Play stories"}
+          {autoplay ? "Pause carousel" : "Play carousel"}
         </button>
       </div>
     </section>

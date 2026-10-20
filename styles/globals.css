@@ -310,11 +310,6 @@ input[type="range"]::-moz-range-thumb {
   background: #f4f4f5;
   border-radius: var(--market-control-radius);
 }
-.market-carousel-controls {
-  border-bottom: 1px solid #e4e4e7;
-}
-.market-slide-tab,
-.market-arrow,
 .market-quote-icon {
   border-radius: var(--market-control-radius);
 }
@@ -433,7 +428,16 @@ input[type="range"]::-moz-range-thumb {
   .market-header .market-search-button {
     padding-inline: 10px;
   }
-  .market-home .market-carousel-controls > div {
-    width: 100%;
-  }
+}
+
+.market-carousel-dot span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e4e4e7;
+  border: 1px solid #000000;
+}
+.market-carousel-dot[aria-pressed="true"] span,
+.market-carousel-dot:hover span {
+  background: #000000;
 }
