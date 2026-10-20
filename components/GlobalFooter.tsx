@@ -28,7 +28,7 @@ export function GlobalFooter() {
   ];
   return (
     <footer
-      className={`mt-16 border-t border-black ${home ? "black-surface bg-black text-white" : "bg-white text-black"}`}
+      className={`mt-16 border-t border-black ${home ? "market-footer bg-white text-black" : "bg-white text-black"}`}
     >
       <div className="shell grid gap-8 py-12 sm:grid-cols-2 lg:grid-cols-5">
         <div>
@@ -39,18 +39,26 @@ export function GlobalFooter() {
             NIRMAAN // MONO
           </Link>
           <p className="mt-4 text-xs leading-6">
-            Architectural grade raw materials infrastructure. Monochromatic
-            structural procurement for builders, structural consultants, and
-            verified civil contractors.
+            {home
+              ? "Building materials, clear pricing and coordinated site deliveries. Plan your next order with NIRMAAN."
+              : "Architectural grade raw materials infrastructure. Monochromatic structural procurement for builders, structural consultants, and verified civil contractors."}
           </p>
           <p className="technical-label mt-4 text-[8px]">
             REG: BLR-KA-560001 · DEMO PLATFORM
           </p>
         </div>
         {groups.map((g) => (
-          <div key={g.title}>
+          <div
+            key={
+              home
+                ? g.title.charAt(0) + g.title.slice(1).toLowerCase()
+                : g.title
+            }
+          >
             <h2 className="technical-label mb-3 border-b border-line pb-2">
-              {g.title}
+              {home
+                ? g.title.charAt(0) + g.title.slice(1).toLowerCase()
+                : g.title}
             </h2>
             <ul className="space-y-2.5">
               {g.links.map(([name, href]) => (
@@ -68,7 +76,7 @@ export function GlobalFooter() {
         ))}
         <div>
           <h2 className="technical-label mb-3 border-b border-line pb-2">
-            COMMERCIAL TRUST
+            {home ? "Commercial trust" : "COMMERCIAL TRUST"}
           </h2>
           <ul className="space-y-3">
             {[
@@ -100,7 +108,7 @@ export function GlobalFooter() {
         </div>
         <div>
           <h2 className="technical-label mb-3 border-b border-line pb-2">
-            ASSISTANCE HOTLINE
+            {home ? "Help & support" : "ASSISTANCE HOTLINE"}
           </h2>
           <p className="text-xs leading-6">
             Central Procurement Command

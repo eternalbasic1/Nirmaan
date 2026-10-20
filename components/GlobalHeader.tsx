@@ -43,27 +43,27 @@ export function GlobalHeader() {
           .slice(0, 4)
       : [];
   return (
-    <header className="sticky top-0 z-40 bg-white">
+    <header className="market-header sticky top-0 z-40 bg-white">
       <div className="black-surface border-b border-black bg-black text-white">
         <div className="shell flex min-h-8 items-center justify-between gap-4 py-1 font-display text-[9px] uppercase tracking-[0.04em]">
           <span className="flex items-center gap-2">
             <MapPin size={12} />
-            DELIVERY PINCODE: BENGALURU 560001
+            Delivering to Bengaluru 560001
             <span className="hidden border-l border-white pl-4 lg:inline">
-              SAME-DAY MILL DISPATCH
+              Same-day mill dispatch
             </span>
           </span>
           <div className="hidden items-center gap-6 md:flex">
             <span className="flex items-center gap-1">
               <Headphones size={12} />
-              24/7 HELPLINE: 1800-419-7000
+              Support: 1800-419-7000
             </span>
             <InfoDialog
               title="GST invoice portal"
               label={
                 <>
                   <ReceiptText size={12} />
-                  GST INVOICE PORTAL
+                  GST invoices
                 </>
               }
               className="inline-flex items-center gap-1 text-[9px] uppercase"
@@ -82,7 +82,7 @@ export function GlobalHeader() {
               className="hidden items-center gap-1 xl:flex"
             >
               <HardHat size={12} />
-              CONTRACTOR DESK
+              Contractor desk
             </Link>
           </div>
         </div>
@@ -90,9 +90,6 @@ export function GlobalHeader() {
       <div className="border-b border-line">
         <div className="shell flex flex-wrap items-center gap-x-5 gap-y-4 py-4 lg:flex-nowrap">
           <Brand />
-          <span className="badge hidden shrink-0 xl:inline-flex">
-            B2C ARCHITECTURAL
-          </span>
           <div
             className="relative order-last w-full lg:order-none lg:min-w-0 lg:flex-1"
             onFocus={() => setFocused(true)}
@@ -102,7 +99,7 @@ export function GlobalHeader() {
           >
             <form
               role="search"
-              className="flex h-10 border border-line"
+              className="market-search flex min-h-12 items-center gap-1 p-1"
               onSubmit={(e) => {
                 e.preventDefault();
                 setFocused(false);
@@ -117,14 +114,16 @@ export function GlobalHeader() {
             >
               <select
                 aria-label="Search division"
-                className="hidden max-w-28 border-r border-line bg-plate px-2 font-display text-[9px] uppercase md:block"
+                className="hidden min-h-10 max-w-32 bg-transparent px-2 md:block"
                 value={division}
                 onChange={(e) => setDivision(e.target.value)}
               >
-                <option value="">ALL DIVISIONS</option>
+                <option value="">All materials</option>
                 {categories.map((c) => (
                   <option key={c.id} value={c.id}>
-                    {c.name}
+                    {c.id === "pipes"
+                      ? "CPVC, PVC & GI"
+                      : c.name.charAt(0) + c.name.slice(1).toLowerCase()}
                   </option>
                 ))}
               </select>
@@ -133,8 +132,8 @@ export function GlobalHeader() {
                 name="q"
                 type="search"
                 aria-label="Search structural materials"
-                placeholder="Search structural materials, grades & brands"
-                className="min-w-0 flex-1 bg-white px-2 text-xs outline-none"
+                placeholder="Search materials, brands & grades"
+                className="min-h-10 min-w-0 flex-1 bg-transparent px-2"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => {
@@ -142,14 +141,14 @@ export function GlobalHeader() {
                 }}
               />
               <button
-                className="border-l border-black bg-black px-4 font-display text-[10px] font-bold uppercase tracking-wider text-white hover:bg-white hover:text-black"
+                className="market-search-button min-h-10 bg-black px-3 text-sm font-semibold text-white hover:bg-white hover:text-black sm:px-4"
                 type="submit"
               >
-                Lookup
+                Search
               </button>
             </form>
             {focused && suggestions.length > 0 && (
-              <div className="absolute inset-x-0 top-full z-50 border border-black bg-white">
+              <div className="market-suggestions absolute inset-x-0 top-full z-50 mt-2 border border-line bg-white">
                 {suggestions.map((p) => (
                   <Link
                     href={`/products/${p.slug}`}
@@ -170,12 +169,12 @@ export function GlobalHeader() {
           <div className="ml-auto flex shrink-0 items-center gap-4 lg:ml-0">
             <Link
               href="/dashboard"
-              className="hidden items-center gap-2 border border-line bg-plate px-3 py-2 sm:flex"
+              className="market-credit hidden items-center gap-2 px-2 py-2 sm:flex"
             >
               <Wallet size={15} />
               <span>
                 <span className="technical-label block text-[8px]">
-                  CREDIT POOL
+                  Site credit
                 </span>
                 <span className="figure-price block text-xs font-semibold">
                   ₹500.00
@@ -186,11 +185,11 @@ export function GlobalHeader() {
               type="button"
               aria-label={`Open cart, ${count} items`}
               onClick={openCart}
-              className="relative flex min-h-10 items-center gap-2 border border-line px-3"
+              className="market-cart relative flex min-h-11 items-center gap-2 px-3"
             >
               <ShoppingBag size={17} />
-              <span className="technical-label hidden sm:inline">CART</span>
-              <span className="absolute -right-1 -top-2 min-w-4 border border-black bg-black px-1 text-center font-display text-[9px] text-white">
+              <span className="technical-label hidden sm:inline">Cart</span>
+              <span className="market-count absolute -right-1 -top-1 min-w-5 bg-black px-1 text-center text-xs leading-5 text-white">
                 {count}
               </span>
             </button>
@@ -207,8 +206,8 @@ export function GlobalHeader() {
           </div>
         </div>
       </div>
-      <nav aria-label="Material divisions" className="border-b border-black">
-        <div className="shell hide-scrollbar flex min-h-11 items-stretch gap-5 overflow-x-auto font-display text-[10px] font-semibold uppercase tracking-[0.04em]">
+      <nav aria-label="Material divisions" className="border-b border-line">
+        <div className="shell hide-scrollbar flex min-h-11 items-stretch gap-6 overflow-x-auto text-sm font-medium">
           <Link
             href="/"
             className={`flex shrink-0 items-center border-b-2 py-3 ${router.pathname === "/" || router.pathname === "/Home" ? "border-black" : "border-white hover:border-black"}`}
@@ -216,14 +215,14 @@ export function GlobalHeader() {
             Home
           </Link>
           {[
-            ["CEMENT & CONCRETE", "/categories/cement-steel"],
-            ["STEEL & TMT", "/materials?q=rebar"],
-            ["SAND & AGGREGATES", "/materials?q=sand"],
-            ["WATERPROOFING", "/categories/waterproofing"],
-            ["PLUMBING & PIPES", "/categories/pipes"],
-            ["ELECTRICAL", "/categories/electrical"],
-            ["TILES & BATH", "/categories/bathware"],
-            ["PAINT & PUTTY", "/categories/paint"],
+            ["Cement & concrete", "/categories/cement-steel"],
+            ["Steel & TMT", "/materials?q=rebar"],
+            ["Sand & aggregates", "/materials?q=sand"],
+            ["Waterproofing", "/categories/waterproofing"],
+            ["Plumbing & pipes", "/categories/pipes"],
+            ["Electrical", "/categories/electrical"],
+            ["Tiles & bath", "/categories/bathware"],
+            ["Paint & putty", "/categories/paint"],
           ].map(([name, href]) => (
             <Link
               key={name}

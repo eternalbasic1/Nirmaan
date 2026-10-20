@@ -5,7 +5,7 @@ test("three core screens contain their content before JavaScript", async ({
   request,
 }) => {
   for (const [path, text] of [
-    ["/", "SHOP BY STRUCTURAL CATEGORY"],
+    ["/", "SHOP BY CATEGORY"],
     ["/products/jk-super-cement-50kg", "CONCRETE SLAB BAG CALCULATOR"],
     ["/dashboard", "Namaste, Vineeth!"],
   ]) {
