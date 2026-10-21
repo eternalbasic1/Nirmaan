@@ -136,7 +136,7 @@ export default function SiteDashboard() {
   return (
     <>
       <Head>
-        <title>My Site Dashboard | Nirmaan Mono</title>
+        <title>My Site Dashboard | MaterialHub</title>
         <meta
           name="description"
           content="Your site command center. Track material deliveries, review quality checks and prepare your next material indent."
@@ -644,7 +644,7 @@ export default function SiteDashboard() {
                 className="button-outline"
                 onClick={() => show("engineer")}
               >
-                <Phone size={14} /> Call 1800-NIRMAAN (Free)
+                <Phone size={14} /> Call duty engineer (Demo)
               </button>
               <button className="button" onClick={() => show("engineer")}>
                 <MessageSquare size={14} /> WhatsApp duty engineer
@@ -662,7 +662,7 @@ export default function SiteDashboard() {
       >
         <div className="dialog-heading">
           <div>
-            <p className="technical-label">Nirmaan // Mono · Local demo</p>
+            <p className="technical-label">MaterialHub · Local demo</p>
             <h2 id="dashboard-dialog-title">{modalTitle}</h2>
           </div>
           <button

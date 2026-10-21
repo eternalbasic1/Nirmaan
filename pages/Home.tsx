@@ -241,13 +241,13 @@ function ProjectEstimator() {
     addItem("m-sand", estimateSandTonnes);
   };
   const download = () => {
-    const content = `NIRMAAN // MONO — SAMPLE BILL OF QUANTITIES\nArea: ${area} sq.ft\nFloors: ${floors}\nGrade: ${grade}\nCement: ${estimates.cement} × 50kg bags\nRebar: ${estimates.steel} MT\nM-sand: ${estimates.sand} CFT\n\nWhole-project planning coefficients only. Validate quantities with your site engineer. No live quote or invoice.`;
+    const content = `MaterialHub — SAMPLE BILL OF QUANTITIES\nArea: ${area} sq.ft\nFloors: ${floors}\nGrade: ${grade}\nCement: ${estimates.cement} × 50kg bags\nRebar: ${estimates.steel} MT\nM-sand: ${estimates.sand} CFT\n\nWhole-project planning coefficients only. Validate quantities with your site engineer. No live quote or invoice.`;
     const url = URL.createObjectURL(
       new Blob([content], { type: "text/plain" }),
     );
     const a = document.createElement("a");
     a.href = url;
-    a.download = "nirmaan-sample-boq.txt";
+    a.download = "materialhub-sample-boq.txt";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -395,12 +395,12 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>NIRMAAN // MONO — Architectural Materials</title>
+        <title>MaterialHub — Architectural Materials</title>
         <meta
           name="description"
           content="Architectural-grade construction materials. Verified mill batches, transparent tier pricing and site-first procurement."
         />
-        <link rel="canonical" href="https://nirmaanmono.example/" />
+        <link rel="canonical" href="https://nirmaan.houseofdarmoji.com/" />
       </Head>
       <div className="market-home shell pb-4 pt-7 md:pt-10">
         <PersonaCarousel />

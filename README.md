@@ -1,4 +1,4 @@
-# NIRMAAN // MONO
+# MaterialHub
 
 An independent frontend rebuild of the supplied Architectural Monochrome design export. The previous `../Web` application remains separate.
 
@@ -74,7 +74,7 @@ Next.js Pages Router, React, TypeScript, Tailwind CSS 4 and Lucide. Space Grotes
 
 ## Design decisions
 
-The user's strict palette takes priority over the tinted tokens and colored indicators in the export: UI uses only black, white, `#F4F4F5` and `#E4E4E7`. Corners are square, elevation is border-based, and there are no soft shadows. Persona/site/fleet context photos render monochrome; product and material photography retains its original colors. The schematic grid uses structural lines, not decorative gradients.
+The user's strict palette takes priority over the tinted tokens and colored indicators in the export: UI uses black, white, `#F4F4F5` and `#E4E4E7`, with brick-orange `#B84A2B` reserved for “Hub” in the MaterialHub wordmark. Corners are square, elevation is border-based, and there are no soft shadows. Persona/site/fleet context photos render monochrome; product and material photography retains its original colors. The schematic grid uses structural lines, not decorative gradients.
 
 All 38 supplied HTML image references are imported as optimized local WebP assets. Their original URLs and descriptions are recorded in `docs/reference-assets.json`. No remote images are required at runtime. The original design document is retained in `docs/DESIGN.md`.
 

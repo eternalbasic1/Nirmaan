@@ -40,7 +40,7 @@ export function Catalog({
   return (
     <>
       <Head>
-        <title>{title} | NIRMAAN // MONO</title>
+        <title>{title} | MaterialHub</title>
         <meta
           name="description"
           content="Browse sample site-ready architectural and construction materials."

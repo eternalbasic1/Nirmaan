@@ -14,7 +14,7 @@ export default function Checkout() {
   return (
     <>
       <Head>
-        <title>Demo procurement checkout | NIRMAAN // MONO</title>
+        <title>Demo procurement checkout | MaterialHub</title>
       </Head>
       <div className="shell py-10">
         <p className="eyebrow">LOCAL PROCUREMENT DEMONSTRATION</p>

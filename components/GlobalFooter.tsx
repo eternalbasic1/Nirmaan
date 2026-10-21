@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { ArrowUpRight } from "lucide-react";
 import { InfoDialog } from "./InfoDialog";
+import { Brand } from "./Brand";
 export function GlobalFooter() {
   const home = useRouter().pathname === "/";
   const groups = [
@@ -32,15 +33,10 @@ export function GlobalFooter() {
     >
       <div className="shell grid gap-8 py-12 sm:grid-cols-2 lg:grid-cols-5">
         <div>
-          <Link
-            href="/"
-            className="font-display text-lg font-bold tracking-tight"
-          >
-            NIRMAAN // MONO
-          </Link>
+          <Brand compact />
           <p className="mt-4 text-xs leading-6">
             {home
-              ? "Building materials, clear pricing and coordinated site deliveries. Plan your next order with NIRMAAN."
+              ? "Building materials, clear pricing and coordinated site deliveries. Plan your next order with MaterialHub."
               : "Architectural grade raw materials infrastructure. Monochromatic structural procurement for builders, structural consultants, and verified civil contractors."}
           </p>
           <p className="technical-label mt-4 text-[8px]">
@@ -118,7 +114,7 @@ export function GlobalFooter() {
           <p className="mt-3 text-xs leading-6">
             Dispatch Dispatcher:
             <br />
-            dispatch@nirmaanmono.com
+            Demo contact — no messages sent
           </p>
           <Link
             href="/dashboard"
@@ -131,7 +127,7 @@ export function GlobalFooter() {
       <div className="border-t border-line">
         <div className="shell flex flex-wrap justify-between gap-4 py-6 font-display text-[9px] uppercase tracking-[0.06em]">
           <span>
-            © 2026 NIRMAAN MONO · FRONTEND PROTOTYPE · SAMPLE PRICES & GST
+            © 2026 MaterialHub · FRONTEND PROTOTYPE · SAMPLE PRICES & GST
           </span>
           <div className="flex flex-wrap gap-5">
             {["Privacy protocol", "Terms of supply", "Quality disclosures"].map(

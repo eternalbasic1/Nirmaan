@@ -149,10 +149,10 @@ function ProductDetailContent({ product }: { product: Product }) {
   return (
     <>
       <Head>
-        <title>{product.name} | NIRMAAN // MONO</title>
+        <title>{product.name} | MaterialHub</title>
         <meta
           name="description"
-          content={`${product.description} Compare bulk pricing and estimate your site requirements with NIRMAAN MONO.`}
+          content={`${product.description} Compare bulk pricing and estimate your site requirements with MaterialHub.`}
         />
       </Head>
       <div className="shell py-3">

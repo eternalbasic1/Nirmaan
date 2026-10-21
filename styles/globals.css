@@ -6,9 +6,13 @@
   --color-line: #e4e4e7;
 }
 :root {
+  --brand-brick: #b84a2b;
   color-scheme: light;
   background: #ffffff;
   color: #000000;
+}
+.brand-hub {
+  color: var(--brand-brick);
 }
 * {
   box-sizing: border-box;
@@ -217,7 +221,7 @@ input[type="range"]::-moz-range-thumb {
 .market-home .font-display,
 .market-home .figure-price,
 .market-header .technical-label,
-.market-header .font-display:not([aria-label="NIRMAAN MONO home"]),
+.market-header .font-display:not(.brand-wordmark),
 .market-footer h2 {
   font-family: var(--font-inter), Arial, sans-serif;
 }

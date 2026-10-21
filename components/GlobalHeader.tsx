@@ -15,17 +15,7 @@ import {
 import { categories, products } from "@/mockData";
 import { useCart } from "./CartProvider";
 import { InfoDialog } from "./InfoDialog";
-export function Brand() {
-  return (
-    <Link
-      href="/"
-      aria-label="NIRMAAN MONO home"
-      className="whitespace-nowrap font-display text-[20px] font-bold tracking-[-1px] lg:text-[22px]"
-    >
-      NIRMAAN <span className="mx-0.5 font-normal">//</span> MONO
-    </Link>
-  );
-}
+import { Brand } from "./Brand";
 export function GlobalHeader() {
   const router = useRouter();
   const { count, openCart } = useCart();
