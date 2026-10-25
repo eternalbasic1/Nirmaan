@@ -1,14 +1,25 @@
+import Head from "next/head";
 import Link from "next/link";
 export default function NotFound() {
   return (
-    <div className="shell py-24">
-      <p className="eyebrow">DRAWING NOT FOUND / 404</p>
-      <h1 className="section-title mb-6">
-        This material sheet is unavailable.
-      </h1>
-      <Link href="/materials" className="button">
-        Return to material catalog
-      </Link>
-    </div>
+    <>
+      <Head>
+        <title>Page not found | CeraHub</title>
+      </Head>
+      <div className="market-home shell commerce-page">
+        <div className="empty-state">
+          <p className="commerce-eyebrow">Page not found · 404</p>
+          <h1 className="text-3xl font-semibold mb-4">
+            We could not find this page.
+          </h1>
+          <p>
+            The link may have changed, or this material may no longer be listed.
+          </p>
+          <Link href="/materials" className="button">
+            Shop materials
+          </Link>
+        </div>
+      </div>
+    </>
   );
 }

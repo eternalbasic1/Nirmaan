@@ -6,16 +6,16 @@ test("three core screens contain their content before JavaScript", async ({
 }) => {
   for (const [path, text] of [
     ["/", "SHOP BY CATEGORY"],
-    ["/products/jk-super-cement-50kg", "CONCRETE SLAB BAG CALCULATOR"],
-    ["/dashboard", "Namaste, Vineeth!"],
+    ["/products/jk-super-cement-50kg", "Product specifications"],
+    ["/dashboard", "Sample orders"],
   ]) {
     const r = await request.get(path);
     expect(r.status()).toBe(200);
     const html = await r.text();
     expect(html.toLowerCase()).toContain(text.toLowerCase());
     expect(html).toContain('name="robots"');
-    expect(html).toContain('aria-label="MaterialHub home"');
-    expect(html).toContain('<span class="brand-hub">Hub</span>');
+    expect(html).toContain('aria-label="CeraHub home"');
+    expect(html).toContain('src="/cerahub-logo.png"');
     expect(html).not.toMatch(/NIRMAAN|Nirmaan|MONO/);
   }
 });
@@ -28,7 +28,9 @@ test("all catalog routes return populated pages", async ({ request }) => {
   for (const c of categories) {
     const r = await request.get(`/categories/${c.id}`);
     expect(r.status(), c.id).toBe(200);
-    expect(await r.text()).toContain(c.name.replaceAll("&", "&amp;"));
+    expect((await r.text()).toLowerCase()).toContain(
+      c.name.replaceAll("&", "&amp;").toLowerCase(),
+    );
   }
 });
 test("reference assets and self-hosted font weights are available", async ({

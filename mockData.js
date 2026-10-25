@@ -62,7 +62,7 @@ export const categories = [
   },
 ];
 /** @type {import("./lib/types").Product[]} */
-export const products = [
+const catalogProducts = [
   {
     id: "jk-cement",
     slug: "jk-super-cement-50kg",
@@ -514,91 +514,15 @@ export const products = [
     },
   },
 ];
-export const heroSlides = [
-  {
-    tag: "RURAL BUILDER",
-    eyebrow: "FOR RURAL & VILLAGE BUILDERS",
-    title: "YOUR FIRST HOME. BUILT ON SOLID TRUST.",
-    quote:
-      "A home built with honest materials. Factory-direct supplies, verified batches and transparent prices, right to your village site.",
-    author: "For the hands that build a future.",
-    image: "/images/hero-rural-original.webp",
-    action: "EXPLORE STRUCTURAL MATERIALS",
-    href: "/materials",
-  },
-  {
-    tag: "URBAN 9-TO-5",
-    eyebrow: "FOR URBAN 9-TO-5 HOMEOWNERS",
-    title: "TRANSPARENT PRICING WITH 100% VERIFIED MILL CERTIFICATES.",
-    quote:
-      "Building our first Bengaluru duplex without worrying about fake rebar or inflated retail quotes. Verified weighbridge digital slips at the gate.",
-    author: "Karthik & Pooja · Duplex owners, HSR Layout",
-    image: "/images/hero-urban-original.webp",
-    action: "CALCULATE YOUR SLAB NEEDS",
-    href: "/#estimator",
-  },
-  {
-    tag: "VILLA ESTATE",
-    eyebrow: "FOR ARCHITECTURAL ESTATES & VILLAS",
-    title: "EXCEPTIONAL SPACES. ENGINEERED FROM THE GROUND UP.",
-    quote:
-      "Precision in every detail. Premium-grade materials and coordinated site logistics for the places you have always imagined.",
-    author: "For projects built to stand apart.",
-    image: "/images/hero-villa-original.webp",
-    action: "SOURCE YOUR NEXT PROJECT",
-    href: "/materials",
-  },
-];
-export const dashboardStats = [
-  {
-    label: "SITE CREDIT RESERVE",
-    value: "₹500.00",
-    detail: "100% usable on current indents",
-  },
-  {
-    label: "INBOUND TRANSIT",
-    value: "1 Heavy Load Active",
-    detail: "Tata 407 · KA-01-MJ-4029",
-  },
-  {
-    label: "QUALITY AUDIT PASS",
-    value: "2/3 Verified",
-    detail: "Needle vibrator test pending",
-  },
-];
-export const manifestItems = [
-  {
-    productId: "jk-cement",
-    name: "53 Grade High Performance OPC",
-    image: "/images/dashboard-00.webp",
-    quantity: "20 Bags (1,000 kg)",
-    price: 8100,
-    badge: "OPC 53",
-  },
-  {
-    productId: "m-sand",
-    name: "Triple Washed Plastering M-Sand",
-    image: "/images/dashboard-01.webp",
-    quantity: "1 MT Jumbo Bag",
-    price: 2450,
-    badge: "ZONE II SIFTED",
-  },
-  {
-    productId: "fixit-lw",
-    name: "101 LW+ Integral Liquid Admixture",
-    image: "/images/dashboard-02.webp",
-    quantity: "1 × 20L Drum",
-    price: 2850,
-    badge: "WATERPROOF",
-  },
-];
-export const dashboard = {
-  site: "Plot #84, 4th Cross, Green Glen Layout, Bengaluru 560103",
-  phase: "GROUND FLOOR SLAB & PLASTERING",
-  driver: "Ramesh Kumar",
-  truck: "Tata 407 (KA-01-MJ-4029)",
-  arrival: "2:45 PM Today",
-  distance: "5.2 km away",
-  consignment: "ND-92418",
-  camera: "/images/dashboard-05.webp",
-};
+
+// Historical design-export claims are not buying promises. No supplier rates are confirmed.
+export const products = catalogProducts.map((product) => ({
+  ...product,
+  badge: "Sample price",
+  description: `${product.name} — ${product.unit}. Sample catalog listing; final price and availability must be confirmed before purchase.`,
+  specifications: Object.fromEntries(
+    Object.entries(product.specifications).filter(
+      ([key]) => !/dispatch|batch|certificate|age|verified/i.test(key),
+    ),
+  ),
+}));

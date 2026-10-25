@@ -6,7 +6,8 @@ import {
   type ReactNode,
 } from "react";
 import { products } from "@/mockData";
-import { cartTotals, normalizeQuantity, restoreCart } from "@/lib/calculations";
+import { normalizeQuantity, restoreCart } from "@/lib/calculations";
+import { quoteCart, minimumQuantity } from "@/lib/commerce";
 import type { CartLine, CartOptions } from "@/lib/types";
 const KEY = "nirmaan-mono-cart-v1";
 const EMPTY: CartLine[] = [];
@@ -15,12 +16,14 @@ let initialized = false;
 const listeners = new Set<() => void>();
 function persist(items: CartLine[]) {
   snapshot = items;
+  let saved = true;
   try {
     localStorage.setItem(KEY, JSON.stringify(items));
   } catch {
-    /* Shopping remains available when storage is disabled. */
+    saved = false;
   }
   listeners.forEach((fn) => fn());
+  return saved;
 }
 function subscribe(listener: () => void) {
   listeners.add(listener);
@@ -51,7 +54,7 @@ type CartContextValue = {
   items: CartLine[];
   isOpen: boolean;
   count: number;
-  totals: ReturnType<typeof cartTotals>;
+  totals: ReturnType<typeof quoteCart>;
   addItem: (
     productId: string,
     quantity?: number,
@@ -61,19 +64,21 @@ type CartContextValue = {
   removeItem: (key: string) => void;
   openCart: () => void;
   closeCart: () => void;
-  clearCart: () => void;
+  clearCart: () => boolean;
 };
 const CartContext = createContext<CartContextValue | null>(null);
 export function CartProvider({ children }: { children: ReactNode }) {
   const items = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [isOpen, setIsOpen] = useState(false);
-  const totals = cartTotals(items, products);
+  const totals = quoteCart(items, products);
   const addItem = (
     productId: string,
     quantity = 1,
     options: CartOptions = {},
   ) => {
-    if (!products.some((p) => p.id === productId)) return;
+    const product = products.find((p) => p.id === productId);
+    if (!product) return;
+    quantity = Math.max(minimumQuantity(product), normalizeQuantity(quantity));
     const variant = options.variant || "50kg",
       offloading = options.offloading || "ground";
     const key = `${productId}:${variant}:${offloading}`;
@@ -109,13 +114,20 @@ export function CartProvider({ children }: { children: ReactNode }) {
         items,
         isOpen,
         totals,
-        count: totals.count,
+        count: items.reduce((sum, item) => sum + item.quantity, 0),
         addItem,
         updateQuantity: (key, quantity) =>
           persist(
             snapshot.map((i) =>
               i.key === key
-                ? { ...i, quantity: normalizeQuantity(quantity) }
+                ? {
+                    ...i,
+                    quantity: Math.max(
+                      products.find((p) => p.id === i.productId)?.pricing
+                        ?.minimumQuantity || 1,
+                      normalizeQuantity(quantity),
+                    ),
+                  }
                 : i,
             ),
           ),

@@ -5,6 +5,7 @@ import { CartProvider } from "@/components/CartProvider";
 import { GlobalHeader } from "@/components/GlobalHeader";
 import { GlobalFooter } from "@/components/GlobalFooter";
 import { CartDrawer } from "@/components/CartDrawer";
+import { ShopProvider } from "@/components/ShopProvider";
 import "@/styles/globals.css";
 const inter = localFont({
   src: "../public/fonts/inter-variable.woff2",
@@ -29,7 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="noindex,nofollow" />
-        <link rel="icon" href="/icon.svg" />
+        <link rel="icon" type="image/png" href="/cerahub-logo.png" />
       </Head>
       <a
         href="#main"
@@ -37,14 +38,16 @@ export default function App({ Component, pageProps }: AppProps) {
       >
         Skip to content
       </a>
-      <CartProvider>
-        <GlobalHeader />
-        <main id="main">
-          <Component {...pageProps} />
-        </main>
-        <GlobalFooter />
-        <CartDrawer />
-      </CartProvider>
+      <ShopProvider>
+        <CartProvider>
+          <GlobalHeader />
+          <main id="main">
+            <Component {...pageProps} />
+          </main>
+          <GlobalFooter />
+          <CartDrawer />
+        </CartProvider>
+      </ShopProvider>
     </div>
   );
 }

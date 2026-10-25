@@ -3,7 +3,6 @@ import {
   slabBags,
   estimateProject,
   unitPrice,
-  cartTotals,
   restoreCart,
 } from "../lib/calculations";
 import type { Product } from "../lib/types";
@@ -38,23 +37,27 @@ describe("material calculations", () => {
     });
     expect(estimateProject(0, 2)).toEqual({ cement: 0, steel: 0, sand: 0 });
   });
-  it("computes line handling and sample GST in integer paise", () => {
-    const totals = cartTotals(
-      [
+  it("merges old unloading variants without preserving a promised handling service", () => {
+    const restored = restoreCart(
+      JSON.stringify([
         {
-          key: "a",
           productId: "jk-cement",
-          quantity: 50,
+          quantity: 2,
           variant: "50kg",
           offloading: "manual",
         },
-      ],
+        {
+          productId: "jk-cement",
+          quantity: 3,
+          variant: "50kg",
+          offloading: "ground",
+        },
+      ]),
       [product],
     );
-    expect(totals.basePaise).toBe(1675000);
-    expect(totals.handlingPaise).toBe(50000);
-    expect(totals.gstPaise).toBe(310500);
-    expect(totals.totalPaise).toBe(2035500);
+    expect(restored).toHaveLength(1);
+    expect(restored[0].quantity).toBe(5);
+    expect(restored[0].offloading).toBe("ground");
   });
   it("rejects corrupt persistence, unknown products, and invalid quantities", () => {
     expect(restoreCart("broken", [product])).toEqual([]);
