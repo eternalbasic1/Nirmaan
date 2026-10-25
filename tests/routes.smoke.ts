@@ -7,7 +7,7 @@ test("three core screens contain their content before JavaScript", async ({
   for (const [path, text] of [
     ["/", "SHOP BY CATEGORY"],
     ["/products/jk-super-cement-50kg", "Product specifications"],
-    ["/dashboard", "Your orders will appear here."],
+    ["/dashboard", "Sample orders"],
   ]) {
     const r = await request.get(path);
     expect(r.status()).toBe(200);

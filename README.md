@@ -20,7 +20,7 @@ Open http://localhost:3002. `npm run build` creates a production build; `npm sta
 - `/products/[slug]` shows the brand, buying unit, minimum quantity, sample unit price, availability and price validity. Technical information is expandable.
 - The persistent cart uses quantity-based sample prices. Tax, delivery and unloading are explicitly unconfirmed; no fabricated final amount or blanket GST rate is applied.
 - `/checkout` collects details for an explicitly labelled browser-local order preview. It does not place an order, reserve stock, contact suppliers or accept payment. Saving a preview keeps the cart.
-- `/dashboard` is My orders. It starts empty and shows only previews the user creates, along with optional saved addresses. Users can edit/delete addresses, download a clearly labelled preview, delete previews and review current prices before adding materials again.
+- `/dashboard` is My orders. It includes a labelled, optional sample-order view for evaluating the layout, separate from previews the user creates and optional saved addresses. The sample-order switch restores the empty state when there are no user previews. Sample records are never persisted as customer orders. Users can edit/delete addresses, download a clearly labelled preview, delete previews and review current prices before adding materials again.
 - `/help` explains prices, delivery, order issues, privacy and the preview's limits. Actual support contacts and trading policies are not configured or invented.
 - Wallet balances, construction audits, cameras, GPS simulations, engineering calculators, testimonials and unsupported factory/batch/unloading promises have been removed from the shopping experience.
 

@@ -61,91 +61,89 @@ export function Catalog({
           content="Browse building materials, buying units and sample prices on CeraHub."
         />
       </Head>
-      <div className="market-home catalog-page shell py-7 md:py-10">
-        <div className="catalog-heading">
-          <div>
-            <h1>{query ? `Results for “${query}”` : title}</h1>
-            <p>
-              {selectedCategory?.description ||
-                "Materials for every stage of your build."}
-            </p>
-            <p className="muted-copy">
-              Sample unit prices. Tax, delivery, availability and price validity
-              need confirmation.
-            </p>
-          </div>
-          <span className="catalog-count" role="status" aria-live="polite">
-            {filtered.length} {filtered.length === 1 ? "material" : "materials"}
-          </span>
-        </div>
-        <div className="catalog-toolbar">
-          <label className="catalog-category-control">
-            <span className="sr-only">Category</span>
-            <select
-              aria-label="Browse categories"
-              value={category}
-              onChange={(e) => {
-                const pathname = e.target.value
-                  ? `/categories/${e.target.value}`
-                  : "/materials";
-                void router.push({
-                  pathname,
-                  query: query ? { q: query } : {},
-                });
-              }}
-            >
-              <option value="">All materials</option>
-              {categories.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {categoryLabel(c.name)}
-                </option>
-              ))}
-            </select>
-            <ChevronDown size={15} aria-hidden="true" />
-          </label>
-          <details className="catalog-price-filter">
-            <summary onKeyDown={closePriceFilter}>
-              <SlidersHorizontal size={15} aria-hidden="true" />
-              {max < 10000 ? `Up to ₹${max.toLocaleString("en-IN")}` : "Price"}
-              <ChevronDown size={14} aria-hidden="true" />
-            </summary>
-            <div className="catalog-price-panel">
-              <label htmlFor="catalog-max-price">Maximum unit price</label>
-              <output htmlFor="catalog-max-price">
-                ₹{max.toLocaleString("en-IN")}
-              </output>
-              <input
-                id="catalog-max-price"
-                type="range"
-                min={100}
-                max={10000}
-                step={100}
-                value={max}
-                onChange={(e) => setMax(Number(e.target.value))}
-                onKeyDown={closePriceFilter}
-                aria-label="Maximum unit price"
-              />
-              <button
-                type="button"
-                onClick={() => setMax(10000)}
-                onKeyDown={closePriceFilter}
-              >
-                Reset price
-              </button>
+      <div className="market-home catalog-page shell">
+        <div className="catalog-controls">
+          <div className="catalog-heading">
+            <div className="catalog-title-row">
+              <h1>{query ? `Results for “${query}”` : title}</h1>
+              <span className="catalog-count" role="status" aria-live="polite">
+                {filtered.length}{" "}
+                {filtered.length === 1 ? "material" : "materials"}
+              </span>
             </div>
-          </details>
-          <label className="catalog-sort-control">
-            <span>Sort by</span>
-            <select
-              aria-label="Sort materials"
-              value={sort}
-              onChange={(e) => setSort(e.target.value)}
-            >
-              <option value="recommended">Recommended</option>
-              <option value="low">Price: low to high</option>
-              <option value="high">Price: high to low</option>
-            </select>
-          </label>
+            <p>Sample prices · Final charges confirmed before ordering</p>
+          </div>
+          <div className="catalog-toolbar">
+            <label className="catalog-category-control">
+              <span className="sr-only">Category</span>
+              <select
+                aria-label="Browse categories"
+                value={category}
+                onChange={(e) => {
+                  const pathname = e.target.value
+                    ? `/categories/${e.target.value}`
+                    : "/materials";
+                  void router.push({
+                    pathname,
+                    query: query ? { q: query } : {},
+                  });
+                }}
+              >
+                <option value="">All materials</option>
+                {categories.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {categoryLabel(c.name)}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown size={15} aria-hidden="true" />
+            </label>
+            <details className="catalog-price-filter">
+              <summary onKeyDown={closePriceFilter}>
+                <SlidersHorizontal size={15} aria-hidden="true" />
+                {max < 10000
+                  ? `Up to ₹${max.toLocaleString("en-IN")}`
+                  : "Price"}
+                <ChevronDown size={14} aria-hidden="true" />
+              </summary>
+              <div className="catalog-price-panel">
+                <label htmlFor="catalog-max-price">Maximum unit price</label>
+                <output htmlFor="catalog-max-price">
+                  ₹{max.toLocaleString("en-IN")}
+                </output>
+                <input
+                  id="catalog-max-price"
+                  type="range"
+                  min={100}
+                  max={10000}
+                  step={100}
+                  value={max}
+                  onChange={(e) => setMax(Number(e.target.value))}
+                  onKeyDown={closePriceFilter}
+                  aria-label="Maximum unit price"
+                />
+                <button
+                  type="button"
+                  onClick={() => setMax(10000)}
+                  onKeyDown={closePriceFilter}
+                >
+                  Reset price
+                </button>
+              </div>
+            </details>
+            <label className="catalog-sort-control">
+              <span>Sort by</span>
+              <select
+                aria-label="Sort materials"
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+              >
+                <option value="recommended">Recommended</option>
+                <option value="low">Price: low to high</option>
+                <option value="high">Price: high to low</option>
+              </select>
+            </label>
+          </div>
         </div>
         {filtered.length ? (
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">

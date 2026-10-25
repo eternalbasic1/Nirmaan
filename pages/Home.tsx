@@ -55,7 +55,6 @@ export default function Home() {
               priority
               className="object-cover"
             />
-            <span>For the home you are building.</span>
           </div>
         </section>
         <DeliveryCheck />

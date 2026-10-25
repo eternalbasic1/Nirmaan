@@ -44,7 +44,7 @@ test("a customer can save a preview, edit an address and review current reorder 
   await page.reload();
   await expect(page.locator(".order-preview")).toHaveCount(1);
   await expect(
-    page.getByRole("heading", { name: "Your orders will appear here." }),
+    page.getByRole("heading", { name: "Your saved previews" }),
   ).toBeVisible();
   await page.getByRole("tab", { name: "Saved addresses" }).click();
   await page.getByRole("button", { name: "Edit address", exact: true }).click();
@@ -147,4 +147,24 @@ test("key pages remain usable without overflow and fictitious service claims", a
       ).toBe(true);
     }
   }
+});
+
+test("dashboard samples are labelled, optional and never stored as customer orders", async ({
+  page,
+}) => {
+  await page.goto("/dashboard");
+  await expect(
+    page.getByRole("region", { name: "Sample orders" }),
+  ).toBeVisible();
+  await expect(page.getByText("SAMPLE-1024", { exact: true })).toBeVisible();
+  await page.getByRole("checkbox", { name: "Show sample orders" }).uncheck();
+  await expect(
+    page.getByRole("heading", { name: "Your orders will appear here." }),
+  ).toBeVisible();
+  await expect(page.getByRole("region", { name: "Sample orders" })).toHaveCount(
+    0,
+  );
+  expect(
+    await page.evaluate(() => localStorage.getItem("cerahub-shopping-v1")),
+  ).toBeNull();
 });

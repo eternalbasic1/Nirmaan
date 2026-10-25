@@ -5,6 +5,7 @@ import { ArrowRight, MapPin, Package, Plus, Download } from "lucide-react";
 import { useShop } from "@/components/ShopProvider";
 import { useCart } from "@/components/CartProvider";
 import { AddressForm, blankAddress } from "@/components/AddressForm";
+import { SampleOrders } from "@/components/SampleOrders";
 import { PricingSummary } from "@/components/PricingSummary";
 import type { Address, OrderPreview } from "@/lib/types";
 import { products } from "@/mockData";
@@ -39,6 +40,7 @@ export default function SiteDashboard() {
   const shop = useShop();
   const cart = useCart();
   const [tab, setTab] = useState("orders");
+  const [showSamples, setShowSamples] = useState(true);
   const [editing, setEditing] = useState<Address | null>(null);
   const [notice, setNotice] = useState("");
   const [reorder, setReorder] = useState<OrderPreview | null>(null);
@@ -53,9 +55,16 @@ export default function SiteDashboard() {
           <h1>My orders</h1>
           <p>Find order updates, invoices and delivery details in one place.</p>
         </div>
-        <div className="notice">
-          Website preview. No live orders or payments are connected. Only
-          previews you save yourself appear here.
+        <div className="dashboard-preview-control">
+          <label>
+            <input
+              type="checkbox"
+              checked={showSamples}
+              onChange={(e) => setShowSamples(e.target.checked)}
+            />
+            Show sample orders
+          </label>
+          <span>For layout preview only</span>
         </div>
         {shop.storageWarning && (
           <p className="notice" role="alert">
@@ -93,17 +102,20 @@ export default function SiteDashboard() {
             aria-labelledby="orders-tab"
             id="orders-panel"
           >
-            <div className="empty-state orders-empty">
-              <Package size={36} strokeWidth={1.3} />
-              <h2>Your orders will appear here.</h2>
-              <p>Start shopping for your building materials.</p>
-              <Link className="button" href="/materials">
-                Shop materials <ArrowRight size={15} />
-              </Link>
-              <p className="muted-copy">
-                No active deliveries or past purchases yet.
-              </p>
-            </div>
+            {showSamples && <SampleOrders />}
+            {!showSamples && shop.orders.length === 0 && (
+              <div className="empty-state orders-empty">
+                <Package size={36} strokeWidth={1.3} />
+                <h2>Your orders will appear here.</h2>
+                <p>Start shopping for your building materials.</p>
+                <Link className="button" href="/materials">
+                  Shop materials <ArrowRight size={15} />
+                </Link>
+                <p className="muted-copy">
+                  No active deliveries or past purchases yet.
+                </p>
+              </div>
+            )}
             {shop.orders.length > 0 && (
               <section className="commerce-section">
                 <div className="commerce-section-heading">
