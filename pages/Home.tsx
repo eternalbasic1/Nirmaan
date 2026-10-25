@@ -5,6 +5,7 @@ import { ArrowRight, Package, ReceiptText, Truck } from "lucide-react";
 import { categories, products } from "@/mockData";
 import { ProductCard } from "@/components/ProductCard";
 import { DeliveryCheck } from "@/components/DeliveryCheck";
+import { HeroCarousel } from "@/components/HeroCarousel";
 import { displayName } from "@/lib/commerce";
 export default function Home() {
   return (
@@ -46,16 +47,7 @@ export default function Home() {
               published before ordering opens.
             </p>
           </div>
-          <div className="commerce-hero-photo">
-            <Image
-              src="/images/hero-urban-original.webp"
-              alt="Homeowners planning their house at a building site"
-              fill
-              sizes="(max-width:768px) 100vw, 50vw"
-              priority
-              className="object-cover"
-            />
-          </div>
+          <HeroCarousel />
         </section>
         <DeliveryCheck />
         <section className="commerce-section" id="categories">

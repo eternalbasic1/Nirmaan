@@ -773,16 +773,26 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 14px;
   overflow: hidden;
 }
-.commerce-hero-photo > span {
+.hero-carousel {
+  min-width: 0;
+}
+.hero-slide {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  background: white;
-  padding: 14px 18px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 600ms ease,
+    visibility 600ms;
+}
+.hero-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide {
+    transition: none;
+  }
 }
 .delivery-check {
   display: flex;
