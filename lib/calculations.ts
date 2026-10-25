@@ -47,28 +47,6 @@ export function estimateProject(area: number, floors = 1, factor = 1) {
     sand: Math.ceil(area * floors * 0.8 * factor),
   };
 }
-export function cartTotals(items: CartLine[], products: Product[]) {
-  let basePaise = 0,
-    handlingPaise = 0,
-    count = 0;
-  for (const item of items) {
-    const p = products.find((p) => p.id === item.productId);
-    if (!p) continue;
-    basePaise +=
-      Math.round(unitPrice(p, item.quantity, item.variant) * 100) *
-      item.quantity;
-    handlingPaise += (item.offloading === "manual" ? 1000 : 0) * item.quantity;
-    count += item.quantity;
-  }
-  const gstPaise = Math.round((basePaise + handlingPaise) * 0.18);
-  return {
-    basePaise,
-    handlingPaise,
-    gstPaise,
-    totalPaise: basePaise + handlingPaise + gstPaise,
-    count,
-  };
-}
 export function restoreCart(
   raw: string | null,
   products: Product[],
@@ -92,10 +70,24 @@ export function restoreCart(
             i.offloading === "ground" ||
             i.offloading === "manual"),
       )
-      .map((i) => ({
-        ...i,
-        key: `${i.productId}:${i.variant || "50kg"}:${i.offloading || "ground"}`,
-      }));
+      .reduce<CartLine[]>((lines, item) => {
+        const variant = item.variant || "50kg";
+        const key = `${item.productId}:${variant}:ground`;
+        const existing = lines.find((line) => line.key === key);
+        if (existing)
+          existing.quantity = normalizeQuantity(
+            existing.quantity + item.quantity,
+          );
+        else
+          lines.push({
+            key,
+            productId: item.productId,
+            quantity: normalizeQuantity(item.quantity),
+            variant,
+            offloading: "ground",
+          });
+        return lines;
+      }, []);
   } catch {
     return [];
   }

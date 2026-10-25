@@ -1,5 +1,5 @@
 {
-  "name": "nirmaan-mono",
+  "name": "cerahub",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -11,7 +11,8 @@
     "test": "vitest run",
     "format": "prettier --write components pages lib styles tests *.ts *.mjs *.js *.json README.md docs",
     "format:check": "prettier --check components pages lib styles tests *.ts *.mjs *.js *.json README.md docs",
-    "test:smoke": "playwright test"
+    "test:smoke": "playwright test",
+    "test:ui": "playwright test --config playwright.ui.config.ts"
   },
   "dependencies": {
     "lucide-react": "1.59.0",

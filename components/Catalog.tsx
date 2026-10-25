@@ -55,10 +55,10 @@ export function Catalog({
   return (
     <>
       <Head>
-        <title>{title} | MaterialHub</title>
+        <title>{title} | CeraHub</title>
         <meta
           name="description"
-          content="Browse sample site-ready architectural and construction materials."
+          content="Browse building materials, buying units and sample prices on CeraHub."
         />
       </Head>
       <div className="market-home catalog-page shell py-7 md:py-10">
@@ -68,6 +68,10 @@ export function Catalog({
             <p>
               {selectedCategory?.description ||
                 "Materials for every stage of your build."}
+            </p>
+            <p className="muted-copy">
+              Sample unit prices. Tax, delivery, availability and price validity
+              need confirmation.
             </p>
           </div>
           <span className="catalog-count" role="status" aria-live="polite">
@@ -106,7 +110,7 @@ export function Catalog({
               <ChevronDown size={14} aria-hidden="true" />
             </summary>
             <div className="catalog-price-panel">
-              <label htmlFor="catalog-max-price">Maximum basic price</label>
+              <label htmlFor="catalog-max-price">Maximum unit price</label>
               <output htmlFor="catalog-max-price">
                 ₹{max.toLocaleString("en-IN")}
               </output>
@@ -119,7 +123,7 @@ export function Catalog({
                 value={max}
                 onChange={(e) => setMax(Number(e.target.value))}
                 onKeyDown={closePriceFilter}
-                aria-label="Maximum basic price"
+                aria-label="Maximum unit price"
               />
               <button
                 type="button"

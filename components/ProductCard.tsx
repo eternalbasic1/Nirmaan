@@ -4,37 +4,24 @@ import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import type { Product } from "@/lib/types";
 import { money, unitPrice } from "@/lib/calculations";
+import { displayName, minimumQuantity } from "@/lib/commerce";
 import { useCart } from "./CartProvider";
 import { QuantityStepper } from "./QuantityStepper";
 export function ProductCard({
   product,
-  presentation = "technical",
 }: {
   product: Product;
   presentation?: "technical" | "marketplace";
 }) {
-  const marketplace = presentation === "marketplace";
-  const homeNames: Record<string, string> = {
-    "jk-cement": "JK Super cement 50kg",
-    ultratech: "UltraTech Super cement 50kg",
-    "tata-steel": "Tata Tiscon 550D rebar 12mm",
-    "dr-fixit": "Dr. Fixit Pidifin 2K 15kg",
-  };
-  const displayName = marketplace
-    ? homeNames[product.id] || product.name
-    : product.name;
-  const [quantity, setQuantity] = useState(
-    product.id === "jk-cement" ? 50 : product.id === "ultratech" ? 40 : 1,
-  );
+  const [quantity, setQuantity] = useState(minimumQuantity(product));
   const { addItem } = useCart();
+  const confirmed = product.pricing?.status === "confirmed";
   return (
-    <article
-      className={`${marketplace ? "market-product" : "border border-black"} flex min-w-0 flex-col bg-white p-3 md:p-4`}
-    >
+    <article className="market-product flex min-w-0 flex-col bg-white p-3 md:p-4">
       <Link
         href={`/products/${product.slug}`}
         aria-label={`View ${product.name}`}
-        className={`relative block aspect-[1.5] ${marketplace ? "market-product-image" : "border border-line bg-plate"}`}
+        className="market-product-image relative block aspect-[1.5]"
       >
         <Image
           src={
@@ -46,46 +33,42 @@ export function ProductCard({
           className="object-contain p-2"
         />
         <span className="badge-black absolute left-2 top-2 text-[8px]">
-          {marketplace
-            ? product.badge
-                .toLowerCase()
-                .replace("mrp", "MRP")
-                .replace("bis", "BIS")
-                .replace("2k", "2K")
-            : product.badge}
+          {confirmed ? "Check price details" : "Sample price"}
         </span>
       </Link>
       <div className="mt-4 flex flex-1 flex-col">
-        <p className="technical-label mb-1 text-[8px]">
-          {product.brand} · {product.grade}
-        </p>
+        <p className="muted-copy mb-1">{product.brand}</p>
         <Link
           href={`/products/${product.slug}`}
-          className={
-            marketplace
-              ? "market-product-name"
-              : "font-display text-[13px] font-bold uppercase leading-5 hover:underline"
-          }
+          className="market-product-name"
         >
-          {displayName}
+          {displayName(product.name)}
         </Link>
-        {!marketplace && (
-          <p className="mb-4 mt-2 text-[11px] leading-5">
-            {product.description}
-          </p>
-        )}
+        <p className="muted-copy mb-4">
+          {product.unit}
+          {minimumQuantity(product) > 1
+            ? ` · Minimum ${minimumQuantity(product)}`
+            : ""}
+        </p>
         <div className="mt-auto border-t border-line pt-3">
-          <div className="mb-3 flex flex-wrap items-baseline gap-2">
+          <div className="mb-1 flex flex-wrap items-baseline gap-2">
             <strong className="figure-price text-[22px]">
               {money(unitPrice(product, quantity))}
             </strong>
-            <del className="figure-price text-[10px]">{money(product.mrp)}</del>
-            <span className="text-[10px]">/ {product.unit}</span>
+            <span className="text-xs">/ {product.unit}</span>
           </div>
+          <p className="muted-copy mb-3">
+            {product.pricing?.taxIncluded === true
+              ? "Tax included"
+              : "Tax not confirmed"}{" "}
+            · Delivery extra, to be confirmed
+          </p>
           <div className="grid grid-cols-[minmax(90px,0.9fr)_1fr] gap-2">
             <QuantityStepper
               value={quantity}
-              onChange={setQuantity}
+              onChange={(n) =>
+                setQuantity(Math.max(minimumQuantity(product), n))
+              }
               label={`${product.name} quantity`}
             />
             <button

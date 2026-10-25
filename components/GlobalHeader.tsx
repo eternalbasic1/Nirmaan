@@ -1,13 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import {
-  Search,
-  Wallet,
-  ShoppingBag,
-  UserRound,
-  ArrowUpRight,
-} from "lucide-react";
+import { Search, ShoppingBag, UserRound, ArrowUpRight } from "lucide-react";
 import { products } from "@/mockData";
 import { useCart } from "./CartProvider";
 import { Brand } from "./Brand";
@@ -56,7 +50,7 @@ export function GlobalHeader() {
               <input
                 name="q"
                 type="search"
-                aria-label="Search structural materials"
+                aria-label="Search materials"
                 placeholder="Search materials, brands & grades"
                 className="min-h-10 min-w-0 flex-1 bg-transparent px-2"
                 value={query}
@@ -92,20 +86,6 @@ export function GlobalHeader() {
             )}
           </div>
           <div className="ml-auto flex shrink-0 items-center gap-4 lg:ml-0">
-            <Link
-              href="/dashboard"
-              className="market-credit hidden items-center gap-2 px-2 py-2 sm:flex"
-            >
-              <Wallet size={15} />
-              <span>
-                <span className="technical-label block text-[8px]">
-                  Cera Wallet
-                </span>
-                <span className="figure-price block text-xs font-semibold">
-                  ₹500.00
-                </span>
-              </span>
-            </Link>
             <button
               type="button"
               aria-label={`Open cart, ${count} items`}
@@ -120,11 +100,11 @@ export function GlobalHeader() {
             </button>
             <Link
               href="/dashboard"
-              aria-label="Your site dashboard"
+              aria-label="My orders and addresses"
               className="flex items-center gap-2"
             >
               <span className="hidden font-display text-[10px] font-semibold xl:block">
-                Namaste, Vineeth
+                My account
               </span>
               <UserRound size={22} />
             </Link>
