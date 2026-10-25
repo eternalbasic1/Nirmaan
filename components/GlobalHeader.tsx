@@ -2,10 +2,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import {
-  MapPin,
-  Headphones,
-  ReceiptText,
-  HardHat,
   Search,
   Wallet,
   ShoppingBag,
@@ -14,7 +10,6 @@ import {
 } from "lucide-react";
 import { categories, products } from "@/mockData";
 import { useCart } from "./CartProvider";
-import { InfoDialog } from "./InfoDialog";
 import { Brand } from "./Brand";
 export function GlobalHeader() {
   const router = useRouter();
@@ -34,49 +29,6 @@ export function GlobalHeader() {
       : [];
   return (
     <header className="market-header sticky top-0 z-40 bg-white">
-      <div className="black-surface border-b border-black bg-black text-white">
-        <div className="shell flex min-h-8 items-center justify-between gap-4 py-1 font-display text-[9px] uppercase tracking-[0.04em]">
-          <span className="flex items-center gap-2">
-            <MapPin size={12} />
-            Delivering to Bengaluru 560001
-            <span className="hidden border-l border-white pl-4 lg:inline">
-              Same-day mill dispatch
-            </span>
-          </span>
-          <div className="hidden items-center gap-6 md:flex">
-            <span className="flex items-center gap-1">
-              <Headphones size={12} />
-              Support: 1800-419-7000
-            </span>
-            <InfoDialog
-              title="GST invoice portal"
-              label={
-                <>
-                  <ReceiptText size={12} />
-                  GST invoices
-                </>
-              }
-              className="inline-flex items-center gap-1 text-[9px] uppercase"
-            >
-              <p>
-                Invoices in this prototype are sample documents. View a sample
-                invoice or audit sheet from your{" "}
-                <Link href="/dashboard" className="underline">
-                  site dashboard
-                </Link>
-                . No tax filings are submitted.
-              </p>
-            </InfoDialog>
-            <Link
-              href="/dashboard"
-              className="hidden items-center gap-1 xl:flex"
-            >
-              <HardHat size={12} />
-              Contractor desk
-            </Link>
-          </div>
-        </div>
-      </div>
       <div className="border-b border-line">
         <div className="shell flex flex-wrap items-center gap-x-5 gap-y-4 py-4 lg:flex-nowrap">
           <Brand />
@@ -164,7 +116,7 @@ export function GlobalHeader() {
               <Wallet size={15} />
               <span>
                 <span className="technical-label block text-[8px]">
-                  Site credit
+                  Cera Wallet
                 </span>
                 <span className="figure-price block text-xs font-semibold">
                   ₹500.00

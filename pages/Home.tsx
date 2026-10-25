@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
-  Truck,
-  MapPin,
   PackageCheck,
   BadgeCheck,
   Forklift,
@@ -17,7 +15,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import { categories, products, heroSlides } from "@/mockData";
-import { estimateProject, money } from "@/lib/calculations";
+import { estimateProject } from "@/lib/calculations";
 import { ProductCard } from "@/components/ProductCard";
 import { useCart } from "@/components/CartProvider";
 
@@ -133,89 +131,6 @@ function PersonaCarousel() {
           {autoplay ? "Pause carousel" : "Play carousel"}
         </button>
       </div>
-    </section>
-  );
-}
-function PricingCheck() {
-  const [pin, setPin] = useState("560001");
-  const [material, setMaterial] = useState(products[0].id);
-  const [message, setMessage] = useState("");
-  const p = products.find((p) => p.id === material)!;
-  return (
-    <section
-      className="market-quote mt-7 p-5 md:p-6"
-      aria-label="Live mill gate pricing check"
-    >
-      <form
-        className="grid items-end gap-5 xl:grid-cols-[0.85fr_1.5fr]"
-        onSubmit={(e) => {
-          e.preventDefault();
-          setMessage(
-            !/^\d{6}$/.test(pin)
-              ? "Enter a valid six-digit Indian pincode."
-              : !pin.startsWith("560")
-                ? "This demo currently quotes Bengaluru 560xxx pincodes only."
-                : `Sample quote: ${money(p.price)} / ${p.unit}. Dispatch available to ${pin}. Final GST and handling shown in cart.`,
-          );
-        }}
-      >
-        <div className="flex items-center gap-3">
-          <span className="market-quote-icon flex h-12 w-12 shrink-0 items-center justify-center bg-white">
-            <Truck size={19} />
-          </span>
-          <div>
-            <h2 className="text-lg font-semibold">Check material pricing</h2>
-            <p className="mt-1 text-sm">
-              Check sample rates and delivery to your site.
-            </p>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 items-end gap-3 sm:grid-cols-[0.8fr_1.2fr_auto]">
-          <label className="block min-w-0">
-            <span className="mb-2 block text-sm font-medium">
-              Delivery pincode
-            </span>
-            <span className="market-pin flex h-12 items-center gap-2 bg-white px-3">
-              <MapPin size={14} />
-              <input
-                aria-label="Quote delivery pincode"
-                inputMode="numeric"
-                pattern="[0-9]{6}"
-                maxLength={6}
-                value={pin}
-                onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))}
-                className="min-h-11 min-w-0 w-full bg-transparent text-base"
-              />
-            </span>
-          </label>
-          <label className="block min-w-0">
-            <span className="mb-2 block text-sm font-medium">Material</span>
-            <select
-              className="mono-input"
-              aria-label="Quote material"
-              value={material}
-              onChange={(e) => setMaterial(e.target.value)}
-            >
-              {products.slice(0, 4).map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name} ({money(p.price)})
-                </option>
-              ))}
-            </select>
-          </label>
-          <button className="button" type="submit">
-            Get quote <ArrowRight size={13} />
-          </button>
-        </div>
-      </form>
-      {message && (
-        <output
-          className="mt-3 block border-t border-line pt-3 text-sm"
-          aria-live="polite"
-        >
-          {message}
-        </output>
-      )}
     </section>
   );
 }
@@ -404,7 +319,6 @@ export default function Home() {
       </Head>
       <div className="market-home shell pb-4 pt-7 md:pt-10">
         <PersonaCarousel />
-        <PricingCheck />
         <section
           aria-label="Procurement assurances"
           className="market-assurances my-12 grid gap-7 md:grid-cols-2 xl:grid-cols-4"

@@ -14,8 +14,8 @@ test("three core screens contain their content before JavaScript", async ({
     const html = await r.text();
     expect(html.toLowerCase()).toContain(text.toLowerCase());
     expect(html).toContain('name="robots"');
-    expect(html).toContain('aria-label="MaterialHub home"');
-    expect(html).toContain('<span class="brand-hub">Hub</span>');
+    expect(html).toContain('aria-label="CeraHub home"');
+    expect(html).toContain('src="/cerahub-logo.png"');
     expect(html).not.toMatch(/NIRMAAN|Nirmaan|MONO/);
   }
 });

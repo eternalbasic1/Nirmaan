@@ -14,6 +14,53 @@
 .brand-hub {
   color: var(--brand-brick);
 }
+.cerahub-brand {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+}
+.cerahub-logo-symbol,
+.cerahub-logo-name,
+.cerahub-logo-full {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+/* Viewports reuse the original artwork without changing its pixels. */
+.cerahub-brand img {
+  position: absolute;
+  max-width: none;
+  height: auto;
+}
+.cerahub-logo-symbol {
+  width: 46px;
+  height: 47px;
+}
+.cerahub-logo-symbol img {
+  width: 110px;
+  left: -33px;
+  top: -18px;
+}
+.cerahub-logo-name {
+  width: 145px;
+  height: 41px;
+}
+.cerahub-logo-name img {
+  width: 175px;
+  left: -15px;
+  top: -105px;
+}
+.cerahub-logo-full {
+  width: 180px;
+  height: 145px;
+}
+.cerahub-logo-full img {
+  width: 220px;
+  left: -19px;
+  top: -37px;
+}
 * {
   box-sizing: border-box;
   border-radius: 0;

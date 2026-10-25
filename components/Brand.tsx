@@ -4,20 +4,23 @@ export function Brand({ compact = false }: { compact?: boolean }) {
   return (
     <Link
       href="/"
-      aria-label="MaterialHub home"
-      className={`brand-wordmark inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap font-display font-bold tracking-[-1px] ${compact ? "text-lg" : "text-[20px] lg:text-[22px]"}`}
+      aria-label="CeraHub home"
+      className={`brand-wordmark cerahub-brand ${compact ? "cerahub-brand--stacked" : "cerahub-brand--horizontal"}`}
     >
-      <img
-        src="/materialhub-mark.svg"
-        alt=""
-        aria-hidden="true"
-        width={40}
-        height={30}
-        className="h-[30px] w-10 shrink-0"
-      />
-      <span>
-        Material<span className="brand-hub">Hub</span>
-      </span>
+      {compact ? (
+        <span className="cerahub-logo-full" aria-hidden="true">
+          <img src="/cerahub-logo.png" alt="" width={1254} height={1254} />
+        </span>
+      ) : (
+        <>
+          <span className="cerahub-logo-symbol" aria-hidden="true">
+            <img src="/cerahub-logo.png" alt="" width={1254} height={1254} />
+          </span>
+          <span className="cerahub-logo-name" aria-hidden="true">
+            <img src="/cerahub-logo.png" alt="" width={1254} height={1254} />
+          </span>
+        </>
+      )}
     </Link>
   );
 }
