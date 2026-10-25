@@ -8,14 +8,13 @@ import {
   UserRound,
   ArrowUpRight,
 } from "lucide-react";
-import { categories, products } from "@/mockData";
+import { products } from "@/mockData";
 import { useCart } from "./CartProvider";
 import { Brand } from "./Brand";
 export function GlobalHeader() {
   const router = useRouter();
   const { count, openCart } = useCart();
   const [query, setQuery] = useState("");
-  const [division, setDivision] = useState("");
   const [focused, setFocused] = useState(false);
   const suggestions =
     query.trim().length > 1
@@ -49,26 +48,10 @@ export function GlobalHeader() {
                   pathname: "/materials",
                   query: {
                     ...(query ? { q: query } : {}),
-                    ...(division ? { category: division } : {}),
                   },
                 });
               }}
             >
-              <select
-                aria-label="Search division"
-                className="hidden min-h-10 max-w-32 bg-transparent px-2 md:block"
-                value={division}
-                onChange={(e) => setDivision(e.target.value)}
-              >
-                <option value="">All materials</option>
-                {categories.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.id === "pipes"
-                      ? "CPVC, PVC & GI"
-                      : c.name.charAt(0) + c.name.slice(1).toLowerCase()}
-                  </option>
-                ))}
-              </select>
               <Search size={16} className="ml-3 shrink-0 self-center" />
               <input
                 name="q"
@@ -148,35 +131,36 @@ export function GlobalHeader() {
           </div>
         </div>
       </div>
-      <nav aria-label="Material divisions" className="border-b border-line">
-        <div className="shell hide-scrollbar flex min-h-11 items-stretch gap-6 overflow-x-auto text-sm font-medium">
-          <Link
-            href="/"
-            className={`flex shrink-0 items-center border-b-2 py-3 ${router.pathname === "/" || router.pathname === "/Home" ? "border-black" : "border-white hover:border-black"}`}
-          >
-            Home
-          </Link>
+      <nav aria-label="Main navigation" className="border-b border-line">
+        <div className="shell flex min-h-11 items-stretch gap-6 text-sm font-medium">
           {[
-            ["Cement & concrete", "/categories/cement-steel"],
-            ["Steel & TMT", "/materials?q=rebar"],
-            ["Sand & aggregates", "/materials?q=sand"],
-            ["Waterproofing", "/categories/waterproofing"],
-            ["Plumbing & pipes", "/categories/pipes"],
-            ["Electrical", "/categories/electrical"],
-            ["Tiles & bath", "/categories/bathware"],
-            ["Paint & putty", "/categories/paint"],
-          ].map(([name, href]) => (
+            {
+              label: "Home",
+              href: "/",
+              active: router.pathname === "/" || router.pathname === "/Home",
+            },
+            {
+              label: "Shop materials",
+              href: "/materials",
+              active:
+                router.pathname === "/materials" ||
+                router.pathname.startsWith("/categories/") ||
+                router.pathname.startsWith("/products/"),
+            },
+          ].map(({ label, href, active }) => (
             <Link
-              key={name}
+              key={href}
               href={href}
-              className={`flex shrink-0 items-center border-b-2 py-3 ${router.asPath === href ? "border-black" : "border-white hover:border-black"}`}
+              aria-current={active ? "page" : undefined}
+              className={`flex shrink-0 items-center border-b-2 py-3 ${active ? "border-black" : "border-transparent hover:border-black"}`}
             >
-              {name}
+              {label}
             </Link>
           ))}
           <Link
             href="/dashboard"
-            className={`ml-auto flex shrink-0 items-center border-b-2 py-3 ${router.pathname === "/dashboard" ? "border-black" : "border-white hover:border-black"}`}
+            aria-current={router.pathname === "/dashboard" ? "page" : undefined}
+            className={`ml-auto flex shrink-0 items-center border-b-2 py-3 ${router.pathname === "/dashboard" ? "border-black" : "border-transparent hover:border-black"}`}
           >
             My orders <ArrowUpRight size={12} className="ml-1" />
           </Link>

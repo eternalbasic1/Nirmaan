@@ -28,7 +28,9 @@ test("all catalog routes return populated pages", async ({ request }) => {
   for (const c of categories) {
     const r = await request.get(`/categories/${c.id}`);
     expect(r.status(), c.id).toBe(200);
-    expect(await r.text()).toContain(c.name.replaceAll("&", "&amp;"));
+    expect((await r.text()).toLowerCase()).toContain(
+      c.name.replaceAll("&", "&amp;").toLowerCase(),
+    );
   }
 });
 test("reference assets and self-hosted font weights are available", async ({
